@@ -221,7 +221,7 @@ export const ModelProvider = {
   },
   BaiLian: {
     label: 'BaiLian',
-    cn: '阿里云百炼',
+    cn: '阿里云百炼1',
     icon: IconAliyunbailian,
     urlWrite: false,
     secretRequired: true,
@@ -232,7 +232,7 @@ export const ModelProvider = {
     rerank: false,
     modelDocumentUrl:
       'https://help.aliyun.com/zh/model-studio/getting-started/',
-    defaultBaseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    defaultBaseUrl: 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1',
   },
   Volcengine: {
     label: 'Volcengine',

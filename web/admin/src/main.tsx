@@ -12,6 +12,15 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import store from './store';
 
+// 全局错误处理 - 捕获未处理的错误
+window.addEventListener('error', event => {
+  console.error('💥 全局错误:', event.error);
+});
+
+window.addEventListener('unhandledrejection', event => {
+  console.error('💥 未捕获的 Promise 错误:', event.reason);
+});
+
 // 动态加载 CSS 文件
 const loadCSS = (href: string) => {
   const link = document.createElement('link');

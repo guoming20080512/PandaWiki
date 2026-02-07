@@ -49,11 +49,13 @@ export default defineConfig(({ command, mode }) => {
   const shouldAnalyze =
     process.argv.includes('--analyze') || env.ANALYZE === 'true';
   return {
+    logLevel: 'debug', // 启用 debug 日志级别
     build: {
       assetsDir: 'panda-wiki-admin-assets',
     },
     server: {
       hmr: true,
+      logLevel: 'debug', // 启用 HMR 的 debug 日志
       proxy: {
         '/api': {
           target: env.TARGET,

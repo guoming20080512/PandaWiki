@@ -38,6 +38,17 @@ import {
 } from '@/services/modelService';
 import AutoModelConfig, { AutoModelConfigRef } from './AutoModelConfig';
 
+const patchModelProviders = async () => {
+  try {
+    const modelkit = await import('@ctzhian/modelkit');
+    if (modelkit.DEFAULT_MODEL_PROVIDERS) {
+      Object.assign(modelkit.DEFAULT_MODEL_PROVIDERS, ModelProvider);
+    }
+  } catch (e) {
+    console.error('Failed to patch model providers:', e);
+  }
+};
+
 const ModelModal = lazy(() =>
   import('@ctzhian/modelkit').then(
     (mod: typeof import('@ctzhian/modelkit')) => ({ default: mod.ModelModal }),
@@ -109,6 +120,10 @@ const ModelConfig = forwardRef<ModelConfigRef, ModelConfigProps>(
     const [openingAdd, setOpeningAdd] = useState<
       'chat' | 'embedding' | 'rerank' | 'analysis' | 'analysis-vl' | null
     >(null);
+
+    useEffect(() => {
+      patchModelProviders();
+    }, []);
 
     const handleOpenAdd = async (
       type: 'chat' | 'embedding' | 'rerank' | 'analysis' | 'analysis-vl',
@@ -601,7 +616,7 @@ const ModelConfig = forwardRef<ModelConfigRef, ModelConfigProps>(
                 >
                   提示：
                 </Box>
-                切换配置模式或修改向量模型会触发重新学习
+                切换配置模式或修改向量模型会触发重新学习1
               </Box>
             </Stack>
           </Box>
@@ -660,6 +675,18 @@ const ModelConfig = forwardRef<ModelConfigRef, ModelConfigProps>(
                             color: 'text.tertiary',
                           }}
                         >
+                          {/* DEBUG: 显示实际读取的值 */}
+                          <span
+                            style={{
+                              backgroundColor: 'red',
+                              color: 'white',
+                              padding: '2px 5px',
+                              marginRight: '8px',
+                              fontSize: '12px',
+                            }}
+                          >
+                            DEBUG: {ModelProvider.BaiLian?.cn}
+                          </span>
                           {ModelProvider[
                             modelData.chat
                               .provider as keyof typeof ModelProvider
@@ -668,7 +695,7 @@ const ModelConfig = forwardRef<ModelConfigRef, ModelConfigProps>(
                               modelData.chat
                                 .provider as keyof typeof ModelProvider
                             ].label ||
-                            '其他'}
+                            '其他1'}
                           &nbsp;&nbsp;/
                         </Box>
                         <Box

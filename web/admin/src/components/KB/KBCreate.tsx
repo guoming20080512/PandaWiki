@@ -104,6 +104,10 @@ const KBCreate = () => {
         getKbList(id);
         dispatch(setKbC(false));
       })
+      .catch(error => {
+        console.error('💥 创建知识库失败:', error);
+        message.error(error?.message || '创建知识库失败');
+      })
       .finally(() => {
         setLoading(false);
       });
