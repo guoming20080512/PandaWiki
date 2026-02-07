@@ -41,8 +41,10 @@ import AutoModelConfig, { AutoModelConfigRef } from './AutoModelConfig';
 const patchModelProviders = async () => {
   try {
     const modelkit = await import('@ctzhian/modelkit');
-    if (modelkit.DEFAULT_MODEL_PROVIDERS) {
-      Object.assign(modelkit.DEFAULT_MODEL_PROVIDERS, ModelProvider);
+    if (modelkit.DEFAULT_MODEL_PROVIDERS && ModelProvider.BaiLian) {
+      Object.assign(modelkit.DEFAULT_MODEL_PROVIDERS, {
+        BaiLian: ModelProvider.BaiLian,
+      });
     }
   } catch (e) {
     console.error('Failed to patch model providers:', e);
